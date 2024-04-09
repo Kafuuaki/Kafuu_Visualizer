@@ -24,7 +24,7 @@ async fn hello() -> impl Responder {
 async fn start_field() -> actix_web::Result<fs::NamedFile> {
     // Serve index.html file when /StartField is accessed
     // this path is relative path from cargo run
-    Ok(fs::NamedFile::open("../pagefile/index.html")?)
+    Ok(fs::NamedFile::open("../pagefile/StarField/index.html")?)
 }
 
 
@@ -47,7 +47,8 @@ async fn main() -> std::io::Result<()> {
             .service(echo)
             .route("/hey", web::get().to(manual_hello))
             // Serving static files from "./static" directory
-            .service(fs::Files::new("/pagefile", "./static").show_files_listing())
+            // .service(fs::Files::new("/pagefile", "./static").show_files_listing())
+            .service(fs::Files::new("/", "../pagefile/StarField").index_file("index.html"))
     })
     .bind(("127.0.0.1", 8080))?
     .run()
